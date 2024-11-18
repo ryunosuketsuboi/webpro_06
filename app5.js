@@ -23,6 +23,10 @@ app.get("/luck", (req, res) => {
   let luck = '';
   if( num==1 ) luck = '大吉';
   else if( num==2 ) luck = '中吉';
+  else if( num==3 ) luck = '吉';
+  else if( num==4 ) luck = '末吉';
+  else if( num==5 ) luck = '凶';
+  else if( num==6 ) luck = '大凶';
   console.log( 'あなたの運勢は' + luck + 'です' );
   res.render( 'luck', {number:num, luck:luck} );
 });
@@ -64,5 +68,35 @@ app.get("/janken", (req, res) => {
   
   res.render('janken', display);
 });
+
+app.get("/lucky", (req, res) => {
+  const userSelection = req.query.radio;  // ユーザーが選択したくじの結果
+
+  // 運勢の結果を決定
+  let lucky = '';
+  if (userSelection) {
+    lucky = `あなたの選んだくじは「${userSelection}」です！`;
+  } else {
+    lucky = 'くじを選択してください';
+  }
+
+  res.render('lucky', { lucky: lucky });
+});
+
+app.get("/match", (req, res) => {
+  const yourName = req.query.yourName;
+  const partnerName = req.query.partnerName;
+
+  if (!yourName || !partnerName) {
+    return res.render("match", { score: null, message: "両方の名前を入力してください。" });
+  }
+
+  const score = Math.floor(Math.random() * 101); // 0~100のランダムスコア
+  const message = `${yourName}さんと${partnerName}さんの相性スコアは ${score}% です！`;
+
+  res.render("match", { score: score, message: message });
+});
+
+
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

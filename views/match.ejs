@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>相性診断</title>
+</head>
+<body>
+  <h1>相性診断</h1>
+  <% if (score !== null) { %>
+    <p><%= message %></p>
+  <% } else { %>
+    <p><%= message %></p>
+  <% } %>
+  <form action="/match" method="get">
+    <label for="yourName">あなたの名前: </label>
+    <input type="text" id="yourName" name="yourName" required>
+    <br>
+    <label for="partnerName">相手の名前: </label>
+    <input type="text" id="partnerName" name="partnerName" required>
+    <br>
+    <button type="submit">診断</button>
+  </form>
+</body>
+</html>
